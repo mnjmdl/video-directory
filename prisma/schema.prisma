@@ -1,0 +1,196 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   @unique
+  name      String?
+  avatar    String?
+  bio       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  videos       Video[]
+  comments     Comment[]
+  likes        Like[]
+  subscriptions Subscription[] @relation("UserSubscriptions")
+  subscribers   Subscription[] @relation("UserSubscribers")
+  playlists    Playlist[]
+
+  @@map("users")
+}
+
+model Category {
+  id          String @id @default(cuid())
+  name        String @unique
+  description String?
+  slug        String @unique
+  color       String? // For UI theming
+  createdAt   DateTime @default(now())
+
+  // Relations
+  videos Video[]
+
+  @@map("categories")
+}
+
+model Video {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  videoUrl    String   // Path to video file or external URL
+  thumbnailUrl String? // Path to thumbnail image
+  duration    Int?     // Duration in seconds
+  views       Int      @default(0)
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Foreign keys
+  userId     String
+  categoryId String?
+
+  // Relations
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category Category? @relation(fields: [categoryId], references: [id])
+  comments Comment[]
+  likes    Like[]
+  playlistVideos PlaylistVideo[]
+  tags     VideoTag[]
+
+  @@map("videos")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Foreign keys
+  userId  String
+  videoId String
+  parentId String? // For nested comments/replies
+
+  // Relations
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  video    Video     @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  parent   Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies  Comment[] @relation("CommentReplies")
+
+  @@map("comments")
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  type      LikeType // LIKE or DISLIKE
+  createdAt DateTime @default(now())
+
+  // Foreign keys
+  userId  String
+  videoId String
+
+  // Relations
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  video Video @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  // Prevent duplicate likes from same user on same video
+  @@unique([userId, videoId])
+  @@map("likes")
+}
+
+model Subscription {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Foreign keys
+  subscriberId String
+  channelId    String
+
+  // Relations
+  subscriber User @relation("UserSubscriptions", fields: [subscriberId], references: [id], onDelete: Cascade)
+  channel    User @relation("UserSubscribers", fields: [channelId], references: [id], onDelete: Cascade)
+
+  // Prevent duplicate subscriptions
+  @@unique([subscriberId, channelId])
+  @@map("subscriptions")
+}
+
+model Playlist {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  isPublic    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Foreign key
+  userId String
+
+  // Relations
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  playlistVideos PlaylistVideo[]
+
+  @@map("playlists")
+}
+
+model PlaylistVideo {
+  id        String   @id @default(cuid())
+  order     Int      // Order of video in playlist
+  addedAt   DateTime @default(now())
+
+  // Foreign keys
+  playlistId String
+  videoId    String
+
+  // Relations
+  playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  video    Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  // Prevent duplicate videos in same playlist
+  @@unique([playlistId, videoId])
+  @@map("playlist_videos")
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+
+  // Relations
+  videos VideoTag[]
+
+  @@map("tags")
+}
+
+model VideoTag {
+  id      String @id @default(cuid())
+
+  // Foreign keys
+  videoId String
+  tagId   String
+
+  // Relations
+  video Video @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  tag   Tag   @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  // Prevent duplicate tags on same video
+  @@unique([videoId, tagId])
+  @@map("video_tags")
+}
+
+enum LikeType {
+  LIKE
+  DISLIKE
+}
