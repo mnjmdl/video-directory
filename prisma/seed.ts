@@ -8,53 +8,53 @@ async function main() {
   // Create categories
   const categories = await Promise.all([
     prisma.category.upsert({
-      where: { slug: 'technology' },
+      where: { slug: 'bra' },
       update: {},
       create: {
-        name: 'Technology',
-        slug: 'technology',
-        description: 'Tech tutorials, reviews, and innovations',
-        color: '#3B82F6',
+        name: 'Bra',
+        slug: 'bra',
+        description: 'Bra styles, fits, and fashion',
+        color: '#FF69B4',
       },
     }),
     prisma.category.upsert({
-      where: { slug: 'entertainment' },
+      where: { slug: 'knickers' },
       update: {},
       create: {
-        name: 'Entertainment',
-        slug: 'entertainment',
-        description: 'Movies, music, comedy, and fun content',
-        color: '#EF4444',
+        name: 'Knickers',
+        slug: 'knickers',
+        description: 'Knickers, panties, and underwear styles',
+        color: '#FF1493',
       },
     }),
     prisma.category.upsert({
-      where: { slug: 'education' },
+      where: { slug: 'swimwear' },
       update: {},
       create: {
-        name: 'Education',
-        slug: 'education',
-        description: 'Learning and educational content',
-        color: '#10B981',
+        name: 'Swimwear',
+        slug: 'swimwear',
+        description: 'Swimsuits, bikinis, and beachwear',
+        color: '#00CED1',
       },
     }),
     prisma.category.upsert({
-      where: { slug: 'gaming' },
+      where: { slug: 'slips' },
       update: {},
       create: {
-        name: 'Gaming',
-        slug: 'gaming',
-        description: 'Game reviews, playthroughs, and gaming news',
-        color: '#8B5CF6',
+        name: 'Slips',
+        slug: 'slips',
+        description: 'Slips, camisoles, and intimate apparel',
+        color: '#9370DB',
       },
     }),
     prisma.category.upsert({
-      where: { slug: 'lifestyle' },
+      where: { slug: 'others' },
       update: {},
       create: {
-        name: 'Lifestyle',
-        slug: 'lifestyle',
-        description: 'Health, fitness, cooking, and lifestyle tips',
-        color: '#F59E0B',
+        name: 'Others',
+        slug: 'others',
+        description: 'Other lingerie and intimate wear',
+        color: '#FFA500',
       },
     }),
   ])
@@ -63,75 +63,75 @@ async function main() {
 
   // Create admin user first
   const adminUser = await prisma.user.upsert({
-    where: { email: 'admin@videohub.com' },
+    where: { email: 'admin@crystalvideolibrary.com' },
     update: {},
     create: {
-      email: 'admin@videohub.com',
+      email: 'admin@crystalvideolibrary.com',
       username: 'admin',
-      name: 'Admin User',
-      bio: 'VideoHub Administrator - Managing the platform and ensuring quality content.',
+      name: 'Crystal Video Library Admin',
+      bio: 'Crystal Video Library Administrator - Curating the best video content and fashion inspiration.',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
     },
   })
 
   console.log('✅ Admin user created')
-  console.log('📧 Admin Email: admin@videohub.com')
+  console.log('📧 Admin Email: admin@crystalvideolibrary.com')
   console.log('🔑 Admin Password: admin123 (CHANGE THIS IN PRODUCTION!)')
 
   // Create regular users
   const users = await Promise.all([
     prisma.user.upsert({
-      where: { email: 'john.doe@example.com' },
+      where: { email: 'emma.davis@example.com' },
       update: {},
       create: {
-        email: 'john.doe@example.com',
-        username: 'johndoe',
-        name: 'John Doe',
-        bio: 'Tech enthusiast and content creator. I love making tutorials about the latest technologies.',
-        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
-      },
-    }),
-    prisma.user.upsert({
-      where: { email: 'jane.smith@example.com' },
-      update: {},
-      create: {
-        email: 'jane.smith@example.com',
-        username: 'janesmith',
-        name: 'Jane Smith',
-        bio: 'Gamer and streamer. Join me for epic gaming adventures!',
+        email: 'emma.davis@example.com',
+        username: 'emmadavis',
+        name: 'Emma Davis',
+        bio: 'Lingerie expert and fashion consultant. Helping you find your perfect fit and style.',
         avatar: 'https://images.unsplash.com/photo-1494790108755-2616b69a5013?w=400&h=400&fit=crop&crop=face',
       },
     }),
     prisma.user.upsert({
-      where: { email: 'mike.wilson@example.com' },
+      where: { email: 'sophia.chen@example.com' },
       update: {},
       create: {
-        email: 'mike.wilson@example.com',
-        username: 'mikewilson',
-        name: 'Mike Wilson',
-        bio: 'Educator and lifelong learner. Making complex topics simple.',
-        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
-      },
-    }),
-    prisma.user.upsert({
-      where: { email: 'sarah.johnson@example.com' },
-      update: {},
-      create: {
-        email: 'sarah.johnson@example.com',
-        username: 'sarahjohnson',
-        name: 'Sarah Johnson',
-        bio: 'Lifestyle blogger sharing tips on health, wellness, and productivity.',
+        email: 'sophia.chen@example.com',
+        username: 'sophiachen',
+        name: 'Sophia Chen',
+        bio: 'Swimwear specialist and beach fashion enthusiast. Your guide to perfect beach looks!',
         avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
       },
     }),
     prisma.user.upsert({
-      where: { email: 'alex.brown@example.com' },
+      where: { email: 'lisa.rodriguez@example.com' },
       update: {},
       create: {
-        email: 'alex.brown@example.com',
-        username: 'alexbrown',
-        name: 'Alex Brown',
-        bio: 'Entertainment creator making funny sketches and commentary videos.',
+        email: 'lisa.rodriguez@example.com',
+        username: 'lisarodriguez',
+        name: 'Lisa Rodriguez',
+        bio: 'Intimate apparel designer sharing styling tips and fashion inspiration.',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
+      },
+    }),
+    prisma.user.upsert({
+      where: { email: 'maya.patel@example.com' },
+      update: {},
+      create: {
+        email: 'maya.patel@example.com',
+        username: 'mayapatel',
+        name: 'Maya Patel',
+        bio: 'Sustainable fashion advocate focusing on eco-friendly lingerie and ethical brands.',
+        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
+      },
+    }),
+    prisma.user.upsert({
+      where: { email: 'olivia.wilson@example.com' },
+      update: {},
+      create: {
+        email: 'olivia.wilson@example.com',
+        username: 'oliviawilson',
+        name: 'Olivia Wilson',
+        bio: 'Plus-size fashion expert specializing in inclusive lingerie and body positivity.',
         avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
       },
     }),
@@ -158,93 +158,113 @@ async function main() {
     'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4',
   ]
 
-  // Generate hundreds of videos with varied content
+  // Generate 1000+ videos with varied content
   const generateVideoData = () => {
     const videoTemplates = {
-      technology: [
-        { title: 'JavaScript ES2024 New Features', description: 'Explore the latest JavaScript features that will improve your coding workflow.' },
-        { title: 'TypeScript for Beginners', description: 'Get started with TypeScript and learn how to write better, more maintainable code.' },
-        { title: 'React Hooks Deep Dive', description: 'Master React hooks with practical examples and best practices.' },
-        { title: 'Next.js 14 Complete Guide', description: 'Build modern web applications with the latest Next.js features.' },
-        { title: 'Python Data Analysis Tutorial', description: 'Learn data analysis with pandas, numpy, and matplotlib.' },
-        { title: 'Docker for Developers', description: 'Containerize your applications with Docker for better deployment.' },
-        { title: 'AWS Cloud Fundamentals', description: 'Get started with Amazon Web Services and cloud computing.' },
-        { title: 'GraphQL API Development', description: 'Build efficient APIs with GraphQL and modern tools.' },
-        { title: 'Mobile App Development with Flutter', description: 'Create cross-platform mobile apps using Flutter framework.' },
-        { title: 'Blockchain Development Basics', description: 'Understand blockchain technology and smart contract development.' },
-        { title: 'Cybersecurity Best Practices', description: 'Protect your applications and data with security best practices.' },
-        { title: 'DevOps Pipeline Setup', description: 'Automate your deployment process with CI/CD pipelines.' },
-        { title: 'Machine Learning with TensorFlow', description: 'Build and train machine learning models using TensorFlow.' },
-        { title: 'Vue.js 3 Complete Course', description: 'Master Vue.js 3 composition API and build modern web apps.' },
-        { title: 'Database Design Principles', description: 'Learn how to design efficient and scalable databases.' },
+      bra: [
+        { title: 'Perfect Bra Fitting Guide', description: 'Learn how to find your perfect bra size and fit for maximum comfort and support.' },
+        { title: 'Bra Style Guide 2024', description: 'Explore the latest bra styles and trends for every occasion.' },
+        { title: 'Sports Bra Selection Tips', description: 'Choose the right sports bra for your activity level and body type.' },
+        { title: 'Nursing Bra Essentials', description: 'Comfortable and functional nursing bras for new mothers.' },
+        { title: 'Push-Up Bra Techniques', description: 'Master the art of push-up bras for enhanced shape and confidence.' },
+        { title: 'Wireless Bra Comfort Guide', description: 'Discover the comfort and freedom of wireless bras.' },
+        { title: 'Bra Care and Maintenance', description: 'Keep your bras looking new with proper care techniques.' },
+        { title: 'Plus Size Bra Fitting', description: 'Specialized fitting tips for plus size bras and body shapes.' },
+        { title: 'Lace Bra Styling Ideas', description: 'Romantic lace bras for special occasions and everyday wear.' },
+        { title: 'Bra Construction Explained', description: 'Understanding bra components and quality indicators.' },
+        { title: 'Seasonal Bra Wardrobe', description: 'Build a versatile bra collection for different seasons.' },
+        { title: 'Bra Shopping Online Tips', description: 'How to shop for bras online with confidence.' },
+        { title: 'Bra Alteration Techniques', description: 'Simple alterations to customize your bra fit.' },
+        { title: 'Designer Bra Collections', description: 'Luxury designer bras and their unique features.' },
+        { title: 'Bra Size Changes Over Time', description: 'Understanding how your bra size may change throughout life.' },
+        { title: 'Bra Shopping Mistakes to Avoid', description: 'Common bra shopping mistakes and how to avoid them.' },
+        { title: 'Bra Band Size vs Cup Size', description: 'Understanding the difference between band and cup measurements.' },
+        { title: 'Bra Padding Options Guide', description: 'Different padding options and when to choose each type.' },
+        { title: 'Bra Strap Adjustments', description: 'How to properly adjust bra straps for optimal comfort.' },
       ],
-      gaming: [
-        { title: 'Elden Ring Boss Strategy Guide', description: 'Master the toughest bosses in Elden Ring with these proven strategies.' },
-        { title: 'Minecraft Redstone Engineering', description: 'Build complex contraptions and automated systems in Minecraft.' },
-        { title: 'Valorant Pro Tips and Tricks', description: 'Improve your aim and game sense in Valorant competitive play.' },
-        { title: 'Fortnite Building Techniques', description: 'Master advanced building techniques to dominate in Fortnite.' },
-        { title: 'Among Us Detective Skills', description: 'Learn how to spot impostors and win as crewmate in Among Us.' },
-        { title: 'Call of Duty Warzone Loadouts', description: 'The best weapon loadouts for dominating in Warzone.' },
-        { title: 'Pokemon Strategy Guide', description: 'Competitive Pokemon battling strategies and team building.' },
-        { title: 'League of Legends Champion Guide', description: 'Master your favorite champions with detailed gameplay tips.' },
-        { title: 'Cyberpunk 2077 Side Quests', description: 'Discover hidden side quests and secrets in Night City.' },
-        { title: 'The Witcher 3 Complete Walkthrough', description: 'Complete guide to all main and side quests in The Witcher 3.' },
-        { title: 'Apex Legends Movement Guide', description: 'Advanced movement techniques to outplay your opponents.' },
-        { title: 'Fall Guys Winning Strategies', description: 'Tips and tricks to consistently win in Fall Guys matches.' },
-        { title: 'Rocket League Training Routines', description: 'Practice routines to improve your Rocket League skills.' },
-        { title: 'Overwatch 2 Hero Tier List', description: 'Ranking all heroes in the current Overwatch 2 meta.' },
-        { title: 'Genshin Impact F2P Guide', description: 'How to progress efficiently without spending money.' },
+      knickers: [
+        { title: 'Knickers Style Guide', description: 'Complete guide to different knickers styles and their best uses.' },
+        { title: 'Comfortable Everyday Knickers', description: 'Find the most comfortable knickers for daily wear.' },
+        { title: 'Shapewear Knickers Review', description: 'Tummy control and shaping knickers that work.' },
+        { title: 'Lace Knickers for Romance', description: 'Elegant lace knickers for intimate moments.' },
+        { title: 'Sports Knickers Guide', description: 'Performance knickers for active lifestyles.' },
+        { title: 'Seamless Knickers Tutorial', description: 'Invisible knickers under tight clothing.' },
+        { title: 'Period Knickers Innovation', description: 'Modern period knickers for sustainable menstruation.' },
+        { title: 'High-Waisted Knickers Trend', description: 'The return of high-waisted knickers and styling tips.' },
+        { title: 'Knickers Fabric Guide', description: 'Understanding different fabrics and their properties.' },
+        { title: 'Knickers Size and Fit', description: 'How to choose the right knickers size for your body.' },
+        { title: 'Luxury Silk Knickers', description: 'Indulge in premium silk knickers and their benefits.' },
+        { title: 'Knickers Care Instructions', description: 'Proper care and washing techniques for knickers.' },
+        { title: 'Thong vs Briefs Debate', description: 'Choosing between thongs and full coverage knickers.' },
+        { title: 'Knickers for Different Body Types', description: 'Finding knickers that flatter every body shape.' },
+        { title: 'Sustainable Knickers Options', description: 'Eco-friendly knickers for conscious consumers.' },
+        { title: 'Knickers for Sensitive Skin', description: 'Gentle knickers for sensitive skin types.' },
+        { title: 'Knickers Underwear Layers', description: 'How to layer knickers for different outfits.' },
+        { title: 'Knickers Waistband Comfort', description: 'Finding knickers with comfortable waistbands.' },
+        { title: 'Knickers Color Selection Guide', description: 'Choosing knickers colors for different occasions.' },
       ],
-      education: [
-        { title: 'Calculus Made Easy', description: 'Understand calculus concepts with simple explanations and examples.' },
-        { title: 'World History Timeline', description: 'Major events that shaped human civilization throughout history.' },
-        { title: 'Physics Experiments at Home', description: 'Fun and educational physics experiments you can do at home.' },
-        { title: 'Chemistry Fundamentals', description: 'Basic chemistry principles explained in an easy-to-understand way.' },
-        { title: 'Biology Cell Structure', description: 'Explore the fascinating world of cells and their components.' },
-        { title: 'Geography Climate Zones', description: 'Understanding different climate zones and their characteristics.' },
-        { title: 'Mathematics Problem Solving', description: 'Strategies and techniques for solving complex math problems.' },
-        { title: 'English Grammar Rules', description: 'Master English grammar with clear explanations and examples.' },
-        { title: 'Study Techniques That Work', description: 'Evidence-based study methods to improve your learning.' },
-        { title: 'Critical Thinking Skills', description: 'Develop analytical thinking skills for better decision making.' },
-        { title: 'Speed Reading Techniques', description: 'Learn to read faster while maintaining comprehension.' },
-        { title: 'Memory Improvement Methods', description: 'Techniques to enhance your memory and retention.' },
-        { title: 'Public Speaking Mastery', description: 'Overcome fear and become a confident public speaker.' },
-        { title: 'Time Management Strategies', description: 'Effective time management techniques for students and professionals.' },
-        { title: 'Financial Literacy Basics', description: 'Essential financial concepts everyone should understand.' },
+      swimwear: [
+        { title: 'Swimwear Fitting Guide', description: 'Find your perfect swimsuit size and style.' },
+        { title: 'Beachwear Trends 2024', description: 'Latest swimsuit trends and seasonal colors.' },
+        { title: 'One-Piece Swimsuits Review', description: 'Classic one-piece swimsuits for every body type.' },
+        { title: 'Bikini Style Guide', description: 'Mix and match bikinis for different occasions.' },
+        { title: 'Swimwear for Active Water Sports', description: 'Performance swimwear for swimming and water activities.' },
+        { title: 'Maternity Swimwear Solutions', description: 'Comfortable swimwear for pregnancy and postpartum.' },
+        { title: 'Plus Size Swimwear Collection', description: 'Inclusive swimwear for all body sizes.' },
+        { title: 'Swimwear Fabric Technology', description: 'UV protection and quick-dry swimwear fabrics.' },
+        { title: 'Designer Swimwear Showcase', description: 'Luxury designer swimsuits and beachwear.' },
+        { title: 'Swimwear Care and Maintenance', description: 'How to care for your swimwear to extend its life.' },
+        { title: 'Tankini Styling Tips', description: 'Mix and match tankinis for versatile beach looks.' },
+        { title: 'Swimwear for Different Climates', description: 'Appropriate swimwear for various weather conditions.' },
+        { title: 'Burkini Fashion Guide', description: 'Modest swimwear options and styling ideas.' },
+        { title: 'Kids Swimwear Safety', description: 'Safe and comfortable swimwear for children.' },
+        { title: 'Vintage Swimwear Revival', description: 'Retro-inspired swimsuits making a comeback.' },
+        { title: 'Swimwear Sun Protection Guide', description: 'Swimwear with built-in UV protection.' },
+        { title: 'Swimwear for Water Sports', description: 'Durable swimwear for surfing, diving, and other activities.' },
+        { title: 'Swimwear Pattern Selection', description: 'Choosing patterns that flatter different body types.' },
+        { title: 'Swimwear Accessory Guide', description: 'Matching accessories for your swimwear outfits.' },
       ],
-      entertainment: [
-        { title: 'Movie Review: Latest Blockbuster', description: 'In-depth review of the latest Hollywood blockbuster release.' },
-        { title: 'Behind the Scenes: Film Making', description: 'Exclusive behind-the-scenes look at movie production.' },
-        { title: 'Music Producer Breakdown', description: 'Analyzing the production techniques in popular songs.' },
-        { title: 'Celebrity Interview Highlights', description: 'Best moments from our exclusive celebrity interviews.' },
-        { title: 'Stand-up Comedy Special', description: 'Hilarious stand-up comedy routine that will make you laugh.' },
-        { title: 'Magic Tricks Revealed', description: 'Learn amazing magic tricks and impress your friends.' },
-        { title: 'Dance Tutorial: Popular Moves', description: 'Learn the latest dance moves that are trending online.' },
-        { title: 'TV Show Analysis', description: 'Deep dive into the themes and symbolism of popular TV shows.' },
-        { title: 'Concert Highlights', description: 'Best performances from recent live music concerts.' },
-        { title: 'Comedy Sketch Collection', description: 'Funny sketches and parodies that will brighten your day.' },
-        { title: 'Theater Performance Review', description: 'Review of the latest Broadway and theater productions.' },
-        { title: 'Podcast Highlights', description: 'Best moments from popular podcast episodes.' },
-        { title: 'Art Gallery Virtual Tour', description: 'Explore famous art galleries from the comfort of your home.' },
-        { title: 'Book Club Discussion', description: 'Engaging discussion about the latest bestselling novels.' },
-        { title: 'Film Festival Coverage', description: 'Highlights and reviews from major film festivals.' },
+      slips: [
+        { title: 'Slip Dress Styling Guide', description: 'How to style slip dresses for different occasions.' },
+        { title: 'Silk Slip Collection', description: 'Luxurious silk slips for everyday elegance.' },
+        { title: 'Camisole and Slip Sets', description: 'Coordinating camisoles and slips for complete looks.' },
+        { title: 'Slip as Loungewear', description: 'Comfortable slips perfect for relaxing at home.' },
+        { title: 'Layering with Slips', description: 'How to layer slips under sheer clothing.' },
+        { title: 'Slip Fabric Guide', description: 'Different fabrics used in modern slips.' },
+        { title: 'Adjustable Slip Features', description: 'Slips with adjustable straps and features.' },
+        { title: 'Slip Care Instructions', description: 'Proper care for delicate slip fabrics.' },
+        { title: 'Designer Slip Collections', description: 'High-end designer slips and their appeal.' },
+        { title: 'Slip Size and Fit Guide', description: 'Finding the perfect slip size for your body.' },
+        { title: 'Seasonal Slip Wardrobe', description: 'Building a slip collection for year-round wear.' },
+        { title: 'Slip as Nightwear', description: 'Comfortable slips for sleeping and lounging.' },
+        { title: 'Vintage Slip Revival', description: 'Classic slip styles making a modern comeback.' },
+        { title: 'Slip Underwear Guide', description: 'Full and half slips for different needs.' },
+        { title: 'Sustainable Slip Options', description: 'Eco-conscious slip brands and materials.' },
+        { title: 'Slip Dress Layering Techniques', description: 'How to layer slips under different types of clothing.' },
+        { title: 'Slip Fabric Transparency Guide', description: 'Understanding fabric transparency in slips.' },
+        { title: 'Slip Length Selection', description: 'Choosing the right slip length for different outfits.' },
+        { title: 'Slip Neckline Options', description: 'Different neckline styles available in slips.' },
       ],
-      lifestyle: [
-        { title: 'Morning Routine for Success', description: 'Start your day right with this productivity-boosting morning routine.' },
-        { title: 'Healthy Meal Prep Ideas', description: 'Nutritious and delicious meal prep recipes for busy people.' },
-        { title: 'Home Workout Routine', description: 'Effective exercises you can do at home without equipment.' },
-        { title: 'Minimalist Living Tips', description: 'Simplify your life and reduce clutter with minimalist principles.' },
-        { title: 'Meditation for Beginners', description: 'Learn basic meditation techniques to reduce stress and anxiety.' },
-        { title: 'Budget-Friendly Home Decor', description: 'Transform your living space on a budget with creative ideas.' },
-        { title: 'Sustainable Living Guide', description: 'Practical tips for living more sustainably and eco-friendly.' },
-        { title: 'Fashion Style Tips', description: 'Build a versatile wardrobe with timeless fashion pieces.' },
-        { title: 'Gardening for Beginners', description: 'Start your own garden with these simple gardening tips.' },
-        { title: 'Travel Planning Essentials', description: 'How to plan the perfect trip on any budget.' },
-        { title: 'Photography Tips', description: 'Improve your photography skills with professional techniques.' },
-        { title: 'Productivity Hacks', description: 'Simple tricks to boost your productivity and get more done.' },
-        { title: 'Stress Management Techniques', description: 'Effective ways to manage and reduce stress in your daily life.' },
-        { title: 'DIY Home Improvement', description: 'Easy home improvement projects you can do yourself.' },
-        { title: 'Personal Finance Tips', description: 'Smart money management strategies for financial freedom.' },
+      others: [
+        { title: 'Lingerie Wardrobe Essentials', description: 'Must-have pieces for every lingerie collection.' },
+        { title: 'Lingerie Shopping Guide', description: 'How to shop for lingerie with confidence.' },
+        { title: 'Lingerie Care Masterclass', description: 'Complete guide to caring for delicate lingerie.' },
+        { title: 'Lingerie Styling Tips', description: 'How to style lingerie for different occasions.' },
+        { title: 'Designer Lingerie Showcase', description: 'Luxury lingerie brands and their signature pieces.' },
+        { title: 'Lingerie for Special Occasions', description: 'Special lingerie for weddings, anniversaries, and celebrations.' },
+        { title: 'Lingerie Size Guide', description: 'Comprehensive sizing guide for all lingerie types.' },
+        { title: 'Sustainable Lingerie Brands', description: 'Eco-friendly lingerie options for conscious consumers.' },
+        { title: 'Lingerie Gift Guide', description: 'Perfect lingerie gifts for different relationships.' },
+        { title: 'Lingerie Fashion Trends', description: 'Latest trends in lingerie design and styling.' },
+        { title: 'Lingerie Photography Tips', description: 'How to photograph lingerie beautifully.' },
+        { title: 'Lingerie History and Evolution', description: 'The fascinating history of lingerie through the ages.' },
+        { title: 'Lingerie for Different Ages', description: 'Appropriate lingerie for different life stages.' },
+        { title: 'Lingerie Storage Solutions', description: 'How to store lingerie to maintain its quality.' },
+        { title: 'Custom Lingerie Options', description: 'Personalized and custom-made lingerie pieces.' },
+        { title: 'Lingerie Material Guide', description: 'Understanding different lingerie fabrics and materials.' },
+        { title: 'Lingerie Brand Comparisons', description: 'Comparing popular lingerie brands and their specialties.' },
+        { title: 'Lingerie Shopping Budget Guide', description: 'How to shop for lingerie on different budgets.' },
+        { title: 'Lingerie Seasonal Trends', description: 'Seasonal lingerie trends and color palettes.' },
       ]
     }
 
@@ -274,18 +294,17 @@ async function main() {
       const category = categories.find(c => c.slug === categorySlug)
       if (!category) return
 
-      // Create multiple videos from each template with variations
+      // Create 8-12 variations of each template
       templates.forEach((template, templateIndex) => {
-        // Create 3-5 variations of each template
-        const variations = Math.floor(Math.random() * 3) + 3
-        
+        const variations = Math.floor(Math.random() * 5) + 8
+
         for (let i = 0; i < variations; i++) {
           const randomUser = allUsers[Math.floor(Math.random() * allUsers.length)]
           const randomThumbnail = thumbnails[Math.floor(Math.random() * thumbnails.length)]
           const randomVideoUrl = videoUrls[Math.floor(Math.random() * videoUrls.length)]
           const randomDuration = Math.floor(Math.random() * 1800) + 60 // 1-30 minutes
           const randomViews = Math.floor(Math.random() * 100000) + 100
-          
+
           // Add variation to title and description
           const titleVariations = [
             template.title,
@@ -294,7 +313,7 @@ async function main() {
             `${template.title} Tutorial`,
             `Complete Guide: ${template.title}`,
           ]
-          
+
           const descriptionVariations = [
             template.description,
             `${template.description} This comprehensive tutorial covers everything you need to know.`,
@@ -314,19 +333,19 @@ async function main() {
             categoryId: category.id,
             isPublished: Math.random() > 0.1, // 90% published, 10% draft
           })
-          
+
           videoCounter++
         }
       })
     })
 
-    // Add some random additional videos to reach 300+
-    while (videoData.length < 300) {
+    // Add some random additional videos to reach 1000+
+    while (videoData.length < 1000) {
       const randomCategory = categories[Math.floor(Math.random() * categories.length)]
       const randomUser = allUsers[Math.floor(Math.random() * allUsers.length)]
       const randomThumbnail = thumbnails[Math.floor(Math.random() * thumbnails.length)]
       const randomVideoUrl = videoUrls[Math.floor(Math.random() * videoUrls.length)]
-      
+
       const generalTitles = [
         'Quick Tips and Tricks',
         'Behind the Scenes Content',
@@ -339,7 +358,7 @@ async function main() {
         'Collaboration Video',
         'Challenge Completed',
       ]
-      
+
       const generalDescriptions = [
         'Sharing some quick tips and insights from my recent experience.',
         'Take a look behind the scenes of my content creation process.',
@@ -352,10 +371,10 @@ async function main() {
         'Amazing collaboration with fellow content creators.',
         'Successfully completed this week\'s challenge!',
       ]
-      
+
       const randomTitle = generalTitles[Math.floor(Math.random() * generalTitles.length)]
       const randomDescription = generalDescriptions[Math.floor(Math.random() * generalDescriptions.length)]
-      
+
       videoData.push({
         title: `${randomTitle} #${Math.floor(Math.random() * 100) + 1}`,
         description: randomDescription,
@@ -385,7 +404,7 @@ async function main() {
 
   // Create some likes and comments for engagement
   const videos = await prisma.video.findMany()
-  
+
   // Add likes
   for (const video of videos.slice(0, 8)) {
     const numLikes = Math.floor(Math.random() * 50) + 10
@@ -427,7 +446,7 @@ async function main() {
     for (let i = 0; i < numComments; i++) {
       const randomUser = users[Math.floor(Math.random() * users.length)]
       const randomComment = sampleComments[Math.floor(Math.random() * sampleComments.length)]
-      
+
       await prisma.comment.create({
         data: {
           content: randomComment,
@@ -460,7 +479,7 @@ async function main() {
 
   console.log('✅ Playlists created')
 
-  console.log('🎉 Seed completed successfully!')
+  console.log('🎉 Crystal Video Library seed completed successfully!')
 }
 
 main()

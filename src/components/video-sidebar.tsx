@@ -91,12 +91,12 @@ export function VideoSidebar({ videos }: VideoSidebarProps) {
 
               {/* Video Info */}
               <div className="flex-1 min-w-0">
-                <h3 className="font-medium text-gray-900 line-clamp-2 group-hover:text-red-600 transition-colors text-sm leading-tight">
+                <h3 className="font-medium text-gray-600 line-clamp-2 group-hover:text-red-600 transition-colors text-sm leading-tight">
                   {video.title}
                 </h3>
                 
                 <div className="mt-1 space-y-1">
-                  <p className="text-xs text-gray-600 hover:text-gray-900">
+                  <p className="text-xs text-gray-500 hover:text-gray-900">
                     {video.user.name || video.user.username}
                   </p>
                   

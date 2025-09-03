@@ -1,38 +1,40 @@
 const { PrismaClient } = require('@prisma/client')
+
 const prisma = new PrismaClient()
 
 async function checkVideos() {
   try {
-    const totalVideos = await prisma.video.count()
-    const publishedVideos = await prisma.video.count({
+    const totalCount = await prisma.video.count()
+    const publishedCount = await prisma.video.count({
       where: { isPublished: true }
     })
-    const videosByCategory = await prisma.video.groupBy({
+    const unpublishedCount = await prisma.video.count({
+      where: { isPublished: false }
+    })
+
+    console.log(`Total videos: ${totalCount}`)
+    console.log(`Published videos: ${publishedCount}`)
+    console.log(`Unpublished videos: ${unpublishedCount}`)
+
+    // Get count by category for published videos
+    const publishedByCategory = await prisma.video.groupBy({
       by: ['categoryId'],
+      where: { isPublished: true },
       _count: {
-        id: true
-      }
+        id: true,
+      },
     })
-    
-    console.log(`📊 Video Statistics:`)
-    console.log(`Total Videos: ${totalVideos}`)
-    console.log(`Published Videos: ${publishedVideos}`)
-    console.log(`Draft Videos: ${totalVideos - publishedVideos}`)
-    console.log(`\n📋 Videos by Category:`)
-    
-    // Get category names
-    const categories = await prisma.category.findMany()
-    const categoryMap = categories.reduce((acc, cat) => {
-      acc[cat.id] = cat.name
-      return acc
-    }, {})
-    
-    videosByCategory.forEach(group => {
-      console.log(`${categoryMap[group.categoryId]}: ${group._count.id} videos`)
-    })
-    
+
+    console.log('\nPublished videos by category:')
+    for (const count of publishedByCategory) {
+      const category = await prisma.category.findUnique({
+        where: { id: count.categoryId }
+      })
+      console.log(`${category?.name}: ${count._count.id} videos`)
+    }
+
   } catch (error) {
-    console.error('Error checking videos:', error)
+    console.error('Error:', error)
   } finally {
     await prisma.$disconnect()
   }

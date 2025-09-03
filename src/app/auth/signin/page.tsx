@@ -29,7 +29,7 @@ export default async function SignInPage({ searchParams }: SignInPageProps) {
             <LogIn className="h-6 w-6 text-red-600" />
           </div>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">
-            Sign in to VideoHub
+            Sign in to Crystal Video Library
           </h2>
           <p className="mt-2 text-sm text-gray-600">
             Welcome back! Please sign in to your account.
@@ -51,7 +51,7 @@ export default async function SignInPage({ searchParams }: SignInPageProps) {
                     <span>Admin Account:</span>
                   </div>
                   <div className="ml-6 space-y-1">
-                    <div>📧 Email: admin@videohub.com</div>
+                    <div>📧 Email: admin@crystalvideolibrary.com</div>
                     <div>🔑 Password: admin123</div>
                   </div>
                 </div>
@@ -75,8 +75,8 @@ export default async function SignInPage({ searchParams }: SignInPageProps) {
             <div className="flex items-center space-x-2">
               <AlertCircle className="h-5 w-5 text-red-600" />
               <p className="text-sm text-red-700">
-                {error === 'CredentialsSignin' 
-                  ? 'Invalid email or password. Please try again.' 
+                {error === 'CredentialsSignin'
+                  ? 'Invalid email or password. Please try again.'
                   : 'An error occurred during sign in.'}
               </p>
             </div>
@@ -98,7 +98,7 @@ export default async function SignInPage({ searchParams }: SignInPageProps) {
         {/* Sign Up Link */}
         <div className="text-center">
           <p className="text-sm text-gray-600">
-            Don&apos;t have an account?{' '}
+            Don't have an account?{' '}
             <a
               href="/auth/signup"
               className="font-medium text-red-600 hover:text-red-500 transition-colors"

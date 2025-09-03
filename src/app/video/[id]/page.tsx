@@ -38,21 +38,6 @@ export default async function VideoPage({ params }: VideoPageProps) {
         },
       },
       category: true,
-      comments: {
-        include: {
-          user: {
-            select: {
-              id: true,
-              username: true,
-              name: true,
-              avatar: true,
-            },
-          },
-        },
-        orderBy: {
-          createdAt: 'desc',
-        },
-      },
       likes: true,
       _count: {
         select: {
@@ -106,16 +91,6 @@ export default async function VideoPage({ params }: VideoPageProps) {
     take: 10,
   })
 
-  // Increment view count (in a real app, you'd do this more carefully to avoid inflating views)
-  await prisma.video.update({
-    where: { id },
-    data: {
-      views: {
-        increment: 1,
-      },
-    },
-  })
-
   const formatViews = (views: number) => {
     if (views >= 1000000) {
       return `${(views / 1000000).toFixed(1)}M`
@@ -125,8 +100,8 @@ export default async function VideoPage({ params }: VideoPageProps) {
     return views.toString()
   }
 
-  const likeCount = video.likes.filter(like => like.type === 'LIKE').length
-  const dislikeCount = video.likes.filter(like => like.type === 'DISLIKE').length
+  const likeCount = video.likes.filter((like: any) => like.type === 'LIKE').length
+  const dislikeCount = video.likes.filter((like: any) => like.type === 'DISLIKE').length
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -135,20 +110,20 @@ export default async function VideoPage({ params }: VideoPageProps) {
         <div className="lg:col-span-2 space-y-6">
           {/* Video Player */}
           <div className="aspect-video bg-gray-900 rounded-lg overflow-hidden">
-            <VideoPlayer videoUrl={video.videoUrl} title={video.title} />
+            <VideoPlayer videoUrl={video.videoUrl} title={video.title} videoId={video.id} />
           </div>
 
           {/* Video Info */}
           <div className="space-y-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">
+              <h1 className="text-2xl font-bold text-gray-600 mb-2">
                 {video.title}
               </h1>
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div className="flex items-center space-x-4 text-sm text-gray-600">
                   <div className="flex items-center space-x-1">
                     <Eye className="w-4 h-4" />
-                    <span>{formatViews(video.views + 1)} views</span>
+                    <span id="view-count">{formatViews(video.views)} views</span>
                   </div>
                   <span>•</span>
                   <span>{formatDistanceToNow(new Date(video.createdAt), { addSuffix: true })}</span>
@@ -237,7 +212,7 @@ export default async function VideoPage({ params }: VideoPageProps) {
                 <span>{formatViews(video._count.comments)} Comments</span>
               </h2>
             </div>
-            
+
             <Suspense fallback={
               <div className="space-y-4">
                 {[...Array(3)].map((_, i) => (
@@ -251,7 +226,7 @@ export default async function VideoPage({ params }: VideoPageProps) {
                 ))}
               </div>
             }>
-              <CommentSection videoId={video.id} comments={video.comments} />
+              <CommentSection videoId={video.id} comments={[]} />
             </Suspense>
           </div>
         </div>

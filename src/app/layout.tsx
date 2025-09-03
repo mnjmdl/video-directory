@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "VideoHub - Your Video Directory",
-  description: "A YouTube-like video directory platform",
+  title: "Crystal Video Library - Your Video Collection",
+  description: "A comprehensive video library platform for organizing and sharing videos",
 };
 
 export default function RootLayout({
@@ -19,13 +19,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} bg-gray-50`}>
+    <html lang="en" className="light">
+      <body className={`${inter.className} bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors min-h-screen`}>
         <Providers>
           <Header />
           <main className="pt-16">
             {children}
-            
+
           </main>
         </Providers>
       </body>

@@ -94,7 +94,7 @@ export function VideoGrid({ videos }: VideoGridProps) {
               {/* Video Info */}
               <div className="space-y-2">
                 {/* Title */}
-                <h3 className="font-semibold text-gray-900 line-clamp-2 group-hover:text-red-600 transition-colors">
+                <h3 className="font-semibold text-gray-700 line-clamp-2 group-hover:text-red-600 transition-colors">
                   {video.title}
                 </h3>
 

@@ -29,7 +29,7 @@ export const authOptions = {
         }
 
         // Check for admin credentials
-        if (user.email === 'admin@videohub.com' && credentials.password === 'admin123') {
+        if (user.email === 'admin@lingeriehub.com' && credentials.password === 'admin123') {
           return {
             id: user.id,
             email: user.email,
@@ -47,7 +47,7 @@ export const authOptions = {
 
         // For now, just check if password matches (you should implement proper hashing)
         // This is a simplified version for the demo - any password works for non-admin users
-        if (user.email !== 'admin@videohub.com') {
+        if (user.email !== 'admin@lingeriehub.com') {
           return {
             id: user.id,
             email: user.email,
@@ -66,14 +66,15 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, user }: { token: any; user?: any }) {
       if (user) {
-        token.username = (user as { username?: string }).username
+        token.id = user.id
+        token.username = user.username
       }
       return token
     },
     async session({ session, token }: { session: any; token?: any }) {
       if (token) {
-        session.user.id = token.sub!
-        session.user.username = token.username as string
+        session.user.id = token.id
+        session.user.username = token.username
       }
       return session
     },

@@ -1,15 +1,19 @@
 import { Suspense } from 'react'
 import { VideoGrid } from '@/components/video-grid'
 import { CategoryFilter } from '@/components/category-filter'
+import { Pagination } from '@/components/pagination'
 import { prisma } from '@/lib/prisma'
 
 interface HomeProps {
-  searchParams: Promise<{ category?: string }>
+  searchParams: Promise<{ category?: string; page?: string }>
 }
 
+const VIDEOS_PER_PAGE = 50
+
 export default async function Home({ searchParams }: HomeProps) {
-  const { category: selectedCategory } = await searchParams
-  
+  const { category: selectedCategory, page: pageParam } = await searchParams
+  const currentPage = Math.max(1, parseInt(pageParam || '1'))
+
   // Build where clause for video filtering
   const videoWhere: {
     isPublished: boolean
@@ -19,14 +23,22 @@ export default async function Home({ searchParams }: HomeProps) {
   } = {
     isPublished: true,
   }
-  
+
   // Add category filter if specified
   if (selectedCategory) {
     videoWhere.category = {
       slug: selectedCategory
     }
   }
-  
+
+  // Get total count for pagination
+  const totalVideos = await prisma.video.count({
+    where: videoWhere,
+  })
+
+  const totalPages = Math.ceil(totalVideos / VIDEOS_PER_PAGE)
+  const skip = (currentPage - 1) * VIDEOS_PER_PAGE
+
   // Get videos and categories from database
   const [videos, categories] = await Promise.all([
     prisma.video.findMany({
@@ -51,7 +63,8 @@ export default async function Home({ searchParams }: HomeProps) {
       orderBy: {
         createdAt: 'desc',
       },
-      take: 50, // Limit initial load
+      skip: skip,
+      take: VIDEOS_PER_PAGE,
     }),
     prisma.category.findMany({
       orderBy: {
@@ -60,19 +73,25 @@ export default async function Home({ searchParams }: HomeProps) {
     }),
   ])
 
+  // Build search params for pagination
+  const paginationSearchParams: Record<string, string> = {}
+  if (selectedCategory) {
+    paginationSearchParams.category = selectedCategory
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Welcome Section */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-400 mb-2">
-          {selectedCategory 
-            ? `${categories.find(c => c.slug === selectedCategory)?.name || selectedCategory} Videos` 
-            : 'Welcome to VideoHub'
+          {selectedCategory
+            ? `${categories.find(c => c.slug === selectedCategory)?.name || selectedCategory} Videos`
+            : 'Welcome to Crystal Video Library'
           }
         </h1>
         <p className="text-gray-600">
-          {selectedCategory 
-            ? `Explore ${categories.find(c => c.slug === selectedCategory)?.name?.toLowerCase() || selectedCategory} content` 
+          {selectedCategory
+            ? `Explore ${categories.find(c => c.slug === selectedCategory)?.name?.toLowerCase() || selectedCategory} content`
             : 'Discover and share amazing videos from creators around the world'
           }
         </p>
@@ -92,7 +111,15 @@ export default async function Home({ searchParams }: HomeProps) {
 
       {/* Video Grid */}
       {videos.length > 0 ? (
-        <VideoGrid videos={videos} />
+        <>
+          <VideoGrid videos={videos} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            baseUrl="/"
+            searchParams={paginationSearchParams}
+          />
+        </>
       ) : (
         <div className="text-center py-12">
           <div className="bg-gray-100 rounded-full w-24 h-24 mx-auto mb-4 flex items-center justify-center">
@@ -104,7 +131,7 @@ export default async function Home({ searchParams }: HomeProps) {
             {selectedCategory ? 'No videos in this category' : 'No videos yet'}
           </h3>
           <p className="text-gray-500 mb-4">
-            {selectedCategory 
+            {selectedCategory
               ? `No videos found in the ${categories.find(c => c.slug === selectedCategory)?.name?.toLowerCase() || selectedCategory} category. Try selecting a different category.`
               : 'Be the first to upload a video to get started!'
             }
