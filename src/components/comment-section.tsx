@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { formatDistanceToNow } from 'date-fns'
 import { useSession } from 'next-auth/react'
@@ -34,12 +34,7 @@ export function CommentSection({ videoId, comments: initialComments }: CommentSe
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  // Fetch comments on component mount
-  useEffect(() => {
-    fetchComments()
-  }, [videoId])
-
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     try {
       setIsLoading(true)
       const response = await fetch(`/api/videos/${videoId}/comments`)
@@ -52,7 +47,12 @@ export function CommentSection({ videoId, comments: initialComments }: CommentSe
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [videoId])
+
+  // Fetch comments on component mount
+  useEffect(() => {
+    fetchComments()
+  }, [fetchComments])
 
   const handleSubmitComment = async (e: React.FormEvent, parentId?: string) => {
     e.preventDefault()

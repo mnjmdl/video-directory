@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useSession, signIn, signOut } from 'next-auth/react'
-import { Search, Upload, User, Menu, Home, TrendingUp, Library, Sun, Moon } from 'lucide-react'
+import { Search, Upload, User, Menu, Home, Library, Sun, Moon } from 'lucide-react'
 import { useState, FormEvent } from 'react'
 
 export function Header() {

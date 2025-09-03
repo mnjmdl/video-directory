@@ -100,8 +100,8 @@ export default async function VideoPage({ params }: VideoPageProps) {
     return views.toString()
   }
 
-  const likeCount = video.likes.filter((like: any) => like.type === 'LIKE').length
-  const dislikeCount = video.likes.filter((like: any) => like.type === 'DISLIKE').length
+  const likeCount = video.likes.filter((like) => like.type === 'LIKE').length
+  const dislikeCount = video.likes.filter((like) => like.type === 'DISLIKE').length
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

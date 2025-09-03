@@ -1,11 +1,12 @@
 import { Suspense } from 'react'
 import { getServerSession } from 'next-auth/next'
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { VideoGrid } from '@/components/video-grid'
 import { Pagination } from '@/components/pagination'
-import { Eye, ThumbsUp, MessageCircle, Clock, Library as LibraryIcon } from 'lucide-react'
+import { Eye, ThumbsUp, MessageCircle, Library as LibraryIcon } from 'lucide-react'
 
 interface LibraryPageProps {
   searchParams: Promise<{ page?: string }>
@@ -154,14 +155,14 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
           </h3>
           <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
             Start building your collection by liking videos that interest you.
-            They'll appear here for easy access.
+            They&apos;ll appear here for easy access.
           </p>
-          <a
+          <Link
             href="/"
             className="inline-flex items-center space-x-2 bg-red-600 text-white px-6 py-3 rounded-full hover:bg-red-700 transition-colors"
           >
             <span>Browse Videos</span>
-          </a>
+          </Link>
         </div>
       )}
     </div>
