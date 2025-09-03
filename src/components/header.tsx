@@ -71,10 +71,10 @@ export function Header() {
                 <Home className="h-5 w-5 group-hover:text-red-600 dark:group-hover:text-red-400" />
                 <span className="text-sm font-semibold">Home</span>
               </Link>
-              <Link href="/trending" className="flex items-center space-x-2 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 font-medium hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-all duration-200 group">
+              {/* <Link href="/trending" className="flex items-center space-x-2 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 font-medium hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-all duration-200 group">
                 <TrendingUp className="h-5 w-5 group-hover:text-red-600 dark:group-hover:text-red-400" />
                 <span className="text-sm font-semibold">Trending</span>
-              </Link>
+              </Link> */}
               {session && (
                 <Link href="/library" className="flex items-center space-x-2 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 font-medium hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-all duration-200 group">
                   <Library className="h-5 w-5 group-hover:text-red-600 dark:group-hover:text-red-400" />
