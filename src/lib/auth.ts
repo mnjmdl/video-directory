@@ -2,7 +2,7 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { prisma } from './prisma'
-// import bcrypt from 'bcryptjs' // Commented out until password hashing is implemented
+import bcrypt from 'bcryptjs'
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma),
@@ -33,37 +33,34 @@ export const authOptions = {
           throw new Error('Account is disabled. Please contact administrator.')
         }
 
-        // Check for admin credentials
+        // Check for admin credentials (temporary for demo)
         if (user.email === 'admin@crystal.com' && credentials.password === 'admin123') {
           return {
             id: user.id,
             email: user.email,
             name: user.name,
             username: user.username,
-            role: 'ADMIN', // Use enum value
+            role: 'ADMIN',
           }
         }
 
-        // For demo purposes, we'll accept any password for non-admin users
-        // In production, you should implement proper password hashing and verification
-        // const isPasswordValid = await bcrypt.compare(
-        //   credentials.password,
-        //   user.password
-        // )
-
-        // For now, just check if password matches (you should implement proper hashing)
-        // This is a simplified version for the demo - any password works for non-admin users
-        if (user.email !== 'admin@crystal.com') {
+        // For users with stored passwords, verify hash
+        if (user.password) {
+          const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
+          if (!isPasswordValid) {
+            return null
+          }
           return {
             id: user.id,
             email: user.email,
             name: user.name,
             username: user.username,
-            role: user.role || 'USER', // Use database role or default to USER
+            role: user.role || 'USER',
           }
         }
 
-        return null
+        // For users without password, deny login and prompt to set password
+        throw new Error('No password set for this account. Please contact administrator or use password reset if available.')
       },
     }),
   ],

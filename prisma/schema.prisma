@@ -17,6 +17,7 @@ model User {
   name      String?
   avatar    String?
   bio       String?
+  password  String?  // Hashed password
   role      UserRole @default(USER)
   disabled  Boolean  @default(false)
   createdAt DateTime @default(now())

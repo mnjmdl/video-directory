@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-// import bcrypt from 'bcryptjs' // Unused for now
+import bcrypt from 'bcryptjs'
 
 export async function POST(request: NextRequest) {
   try {
@@ -49,8 +49,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Hash password (for future use when password storage is implemented)
-    // const hashedPassword = await bcrypt.hash(password, 12)
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 12)
 
     // Create user
     const newUser = await prisma.user.create({
@@ -58,9 +58,8 @@ export async function POST(request: NextRequest) {
         email,
         username,
         name,
+        password: hashedPassword,
         role: 'USER', // Default role for new users
-        // Note: In production, you'd store hashedPassword, but for demo we'll skip password storage
-        // password: hashedPassword,
       },
       select: {
         id: true,
