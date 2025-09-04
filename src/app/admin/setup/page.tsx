@@ -55,7 +55,7 @@ export default function AdminSetupPage() {
           text: data.error || 'Failed to setup admin user'
         })
       }
-    } catch (error) {
+    } catch {
       setMessage({
         type: 'error',
         text: 'Network error occurred'
@@ -103,7 +103,7 @@ export default function AdminSetupPage() {
                   </h3>
                   <p className="text-sm text-blue-800">
                     Make sure the admin user exists before running this setup.
-                    You can create the admin user through the signup page if it doesn't exist.
+                    You can create the admin user through the signup page if it doesn&apos;t exist.
                   </p>
                 </div>
               </div>

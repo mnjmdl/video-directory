@@ -201,7 +201,7 @@ export default function AdminUsersPage() {
         <div className="text-center">
           <Shield className="mx-auto h-12 w-12 text-red-600" />
           <h2 className="mt-4 text-2xl font-bold text-gray-900">Access Denied</h2>
-          <p className="mt-2 text-gray-600">You don't have permission to view this page.</p>
+          <p className="mt-2 text-gray-600">You don&apos;t have permission to view this page.</p>
           <Link
             href="/"
             className="mt-4 inline-block text-red-600 hover:text-red-500"

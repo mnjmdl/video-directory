@@ -23,7 +23,7 @@ export default function SignUpPage() {
     console.log('🔍 Signup page: Session check')
     console.log('🔍 Signup page: Session status:', status)
     console.log('🔍 Signup page: Session data:', session)
-    console.log('🔍 Signup page: User role:', (session?.user as any)?.role)
+    console.log('🔍 Signup page: User role:', (session?.user as { role?: string })?.role)
 
     if (!session) {
       console.log('🔍 Signup page: No session, redirecting to signin')

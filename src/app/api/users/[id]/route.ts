@@ -5,10 +5,11 @@ import { prisma } from '@/lib/prisma'
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    console.log('PATCH /api/users/[id] - User ID:', params.id)
+    const { id: userId } = await params
+    console.log('PATCH /api/users/[id] - User ID:', userId)
     const session = await getServerSession(authOptions)
     console.log('Session:', session)
 
@@ -22,7 +23,6 @@ export async function PATCH(
     }
 
     const { disabled, role } = await request.json()
-    const userId = params.id
     console.log('Request body - disabled:', disabled, 'role:', role, 'userId:', userId)
 
     // Prevent admin from modifying themselves
@@ -35,7 +35,7 @@ export async function PATCH(
     }
 
     // Prepare update data
-    const updateData: any = {}
+    const updateData: Record<string, unknown> = {}
     if (disabled !== undefined) updateData.disabled = disabled
     if (role !== undefined) updateData.role = role
 
@@ -76,9 +76,10 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id: userId } = await params
     const session = await getServerSession(authOptions)
 
     // Check if user is admin
@@ -88,8 +89,6 @@ export async function DELETE(
         { status: 403 }
       )
     }
-
-    const userId = params.id
 
     // Prevent admin from deleting themselves
     if (userId === session.user.id) {

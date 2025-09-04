@@ -28,8 +28,8 @@ export default function AdminTestPage() {
         <h2 className="font-semibold mb-2">Session Information:</h2>
         <p><strong>Status:</strong> {status}</p>
         <p><strong>User:</strong> {session?.user?.email || 'Not logged in'}</p>
-        <p><strong>Role:</strong> {(session?.user as any)?.role || 'No role'}</p>
-        <p><strong>Is Admin:</strong> {(session?.user as any)?.role === 'ADMIN' ? 'Yes' : 'No'}</p>
+        <p><strong>Role:</strong> {(session?.user as { role?: string })?.role || 'No role'}</p>
+        <p><strong>Is Admin:</strong> {(session?.user as { role?: string })?.role === 'ADMIN' ? 'Yes' : 'No'}</p>
       </div>
 
       <div className="mt-4">
