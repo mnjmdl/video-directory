@@ -17,6 +17,8 @@ model User {
   name      String?
   avatar    String?
   bio       String?
+  role      UserRole @default(USER)
+  disabled  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -193,4 +195,10 @@ model VideoTag {
 enum LikeType {
   LIKE
   DISLIKE
+}
+
+enum UserRole {
+  ADMIN
+  MODERATOR
+  USER
 }

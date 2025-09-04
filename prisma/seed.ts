@@ -63,12 +63,12 @@ async function main() {
 
   // Create admin user first
   const adminUser = await prisma.user.upsert({
-    where: { email: 'admin@crystalvideolibrary.com' },
+    where: { email: 'admin@crystal.com' },
     update: {},
     create: {
-      email: 'admin@crystalvideolibrary.com',
+      email: 'admin@crystal.com',
       username: 'admin',
-      name: 'Crystal Video Library Admin',
+      name: 'Admin',
       bio: 'Crystal Video Library Administrator - Curating the best video content and fashion inspiration.',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
     },

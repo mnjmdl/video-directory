@@ -43,7 +43,7 @@ export function SignInForm({ callbackUrl }: SignInFormProps) {
   }
 
   const fillAdminCredentials = () => {
-    setEmail('admin@videohub.com')
+    setEmail('admin@crystal.com')
     setPassword('admin123')
   }
 

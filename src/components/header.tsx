@@ -11,6 +11,7 @@ export function Header() {
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState('')
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  const [dropdownOpen, setDropdownOpen] = useState(false)
 
   // Initialize theme from localStorage or system preference
   useState(() => {
@@ -134,13 +135,53 @@ export function Header() {
                 <div className="relative">
                   <button
                     className="flex items-center space-x-2 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                    onClick={() => signOut()}
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
                   >
                     <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
                       <User className="h-4 w-4" />
                     </div>
                     <span className="hidden lg:block text-gray-600 dark:text-gray-300">{session.user?.name || (session.user as { username?: string })?.username}</span>
                   </button>
+                  {dropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 z-50">
+                      {(session.user as { role?: string })?.role === 'ADMIN' && (
+                        <>
+                          <Link
+                            href="/admin/users"
+                            onClick={() => setDropdownOpen(false)}
+                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-md"
+                          >
+                            Manage Users
+                          </Link>
+                          <Link
+                            href="/admin/setup"
+                            onClick={() => setDropdownOpen(false)}
+                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                          >
+                            Setup Admin
+                          </Link>
+                          <Link
+                            href="/auth/signup"
+                            onClick={() => setDropdownOpen(false)}
+                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                          >
+                            Create User
+                          </Link>
+                        </>
+                      )}
+                      <button
+                        onClick={() => {
+                          signOut()
+                          setDropdownOpen(false)
+                        }}
+                        className={`block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 ${
+                          (session.user as { role?: string })?.role === 'ADMIN' ? '' : 'rounded-md'
+                        }`}
+                      >
+                        Sign Out
+                      </button>
+                    </div>
+                  )}
                 </div>
               </>
             ) : (

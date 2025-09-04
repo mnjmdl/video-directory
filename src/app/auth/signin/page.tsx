@@ -51,7 +51,7 @@ export default async function SignInPage({ searchParams }: SignInPageProps) {
                     <span>Admin Account:</span>
                   </div>
                   <div className="ml-6 space-y-1">
-                    <div>📧 Email: admin@crystalvideolibrary.com</div>
+                    <div>📧 Email: admin@crystal.com</div>
                     <div>🔑 Password: admin123</div>
                   </div>
                 </div>
