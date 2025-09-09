@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { ThumbsUp, ThumbsDown, Share, Download } from 'lucide-react'
+import { AddToPlaylistButton } from './add-to-playlist-button'
 
 interface VideoActionsProps {
   likeCount: number
@@ -195,12 +196,13 @@ export function VideoActions({ likeCount, dislikeCount, videoUrl, videoTitle, vi
         <Share className="w-4 h-4" />
         <span className="text-sm">Share</span>
       </button>
+      <AddToPlaylistButton videoId={videoId} />
       <button 
         onClick={handleDownload}
         className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
       >
         <Download className="w-4 h-4" />
-        <span className="text-sm">Save</span>
+        <span className="text-sm">Download</span>
       </button>
     </div>
   )

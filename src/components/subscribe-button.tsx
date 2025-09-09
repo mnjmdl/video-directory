@@ -12,7 +12,7 @@ interface SubscribeButtonProps {
 export function SubscribeButton({ channelId, initialSubscriberCount, className = '' }: SubscribeButtonProps) {
   const { data: session } = useSession()
   const [isSubscribed, setIsSubscribed] = useState(false)
-  const [subscriberCount, setSubscriberCount] = useState(initialSubscriberCount)
+  const [, setSubscriberCount] = useState(initialSubscriberCount)
   const [isLoading, setIsLoading] = useState(false)
 
   // Fetch subscription status when user is authenticated

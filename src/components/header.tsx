@@ -3,8 +3,10 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useSession, signIn, signOut } from 'next-auth/react'
-import { Search, Upload, User, Menu, Home, Library, Sun, Moon } from 'lucide-react'
+import { Search, Upload, User, Menu, Home, Library, Sun, Moon, PlaySquare } from 'lucide-react'
 import { useState, FormEvent } from 'react'
+import logo from '../app/assets/crystal_logo.png'
+import Image from 'next/image'
 
 export function Header() {
   const { data: session } = useSession()
@@ -58,11 +60,13 @@ export function Header() {
               <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 md:hidden">
                 <Menu className="h-5 w-5 text-gray-600 dark:text-gray-300" />
               </button>
-              <Link href="/" className="flex items-center space-x-2">
-                <div className="bg-red-600 text-white p-2 rounded-lg">
-                  <span className="text-xl font-bold">CVL</span>
+              <Link href="/" className="flex items-center space-x-2 group-hover:text-red-600">
+                <div className="text-white p-2 rounded-lg">
+                {/* <div className="bg-red-600 text-white p-2 rounded-lg"> */}
+                  {/* <span className="text-xl font-bold">CVL</span> */}
+                  <Image src={logo} alt="Logo" width={25} height={25} />
                 </div>
-                <span className="hidden sm:block text-xl font-semibold text-gray-600 dark:text-gray-300">Crystal Video Library</span>
+                <span className="hidden sm:block text-xl font-semibold text-gray-600 group-hover:text-red-600 dark:text-gray-300">Crystal Video</span>
               </Link>
             </div>
 
@@ -77,10 +81,16 @@ export function Header() {
                 <span className="text-sm font-semibold">Trending</span>
               </Link> */}
               {session && (
-                <Link href="/library" className="flex items-center space-x-2 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 font-medium hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-all duration-200 group">
-                  <Library className="h-5 w-5 group-hover:text-red-600 dark:group-hover:text-red-400" />
-                  <span className="text-sm font-semibold">Library</span>
-                </Link>
+                <>
+                  <Link href="/library" className="flex items-center space-x-2 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 font-medium hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-all duration-200 group">
+                    <Library className="h-5 w-5 group-hover:text-red-600 dark:group-hover:text-red-400" />
+                    <span className="text-sm font-semibold">Library</span>
+                  </Link>
+                  <Link href="/playlists" className="flex items-center space-x-2 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 font-medium hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-all duration-200 group">
+                    <PlaySquare className="h-5 w-5 group-hover:text-red-600 dark:group-hover:text-red-400" />
+                    <span className="text-sm font-semibold">Playlists</span>
+                  </Link>
+                </>
               )}
             </nav>
           </div>
