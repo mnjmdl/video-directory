@@ -7,6 +7,7 @@ import { VideoPlayer } from '@/components/video-player'
 import { VideoSidebar } from '@/components/video-sidebar'
 import { CommentSection } from '@/components/comment-section'
 import { VideoActions } from '@/components/video-actions'
+import { SubscribeButton } from '@/components/subscribe-button'
 import { Eye, MessageCircle } from 'lucide-react'
 
 interface VideoPageProps {
@@ -176,9 +177,11 @@ export default async function VideoPage({ params }: VideoPageProps) {
                       {formatViews(video.user._count.subscribers)} subscribers • {formatViews(video.user._count.videos)} videos
                     </p>
                   </div>
-                  <button className="bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700 transition-colors">
-                    Subscribe
-                  </button>
+                  <SubscribeButton 
+                    channelId={video.userId}
+                    initialSubscriberCount={video.user._count.subscribers}
+                    className="bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700 transition-colors"
+                  />
                 </div>
                 {video.user.bio && (
                   <p className="text-sm text-gray-700 mt-2">{video.user.bio}</p>
