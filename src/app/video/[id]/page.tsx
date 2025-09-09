@@ -6,7 +6,8 @@ import { prisma } from '@/lib/prisma'
 import { VideoPlayer } from '@/components/video-player'
 import { VideoSidebar } from '@/components/video-sidebar'
 import { CommentSection } from '@/components/comment-section'
-import { Eye, ThumbsUp, ThumbsDown, Share, Download, MessageCircle } from 'lucide-react'
+import { VideoActions } from '@/components/video-actions'
+import { Eye, MessageCircle } from 'lucide-react'
 
 interface VideoPageProps {
   params: Promise<{
@@ -138,24 +139,13 @@ export default async function VideoPage({ params }: VideoPageProps) {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex items-center space-x-2">
-                  <button className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
-                    <ThumbsUp className="w-4 h-4" />
-                    <span className="text-sm">{formatViews(likeCount)}</span>
-                  </button>
-                  <button className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
-                    <ThumbsDown className="w-4 h-4" />
-                    <span className="text-sm">{formatViews(dislikeCount)}</span>
-                  </button>
-                  <button className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
-                    <Share className="w-4 h-4" />
-                    <span className="text-sm">Share</span>
-                  </button>
-                  <button className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
-                    <Download className="w-4 h-4" />
-                    <span className="text-sm">Save</span>
-                  </button>
-                </div>
+                <VideoActions 
+                  likeCount={likeCount}
+                  dislikeCount={dislikeCount}
+                  videoUrl={video.videoUrl}
+                  videoTitle={video.title}
+                  videoId={video.id}
+                />
               </div>
             </div>
 
